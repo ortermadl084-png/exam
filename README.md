@@ -107,7 +107,7 @@
 
     <script>
         const KEY = "110423";
-        const NOMOR_WA = "085715349712"; // GANTI DENGAN NOMOR WA LO
+        const NOMOR_WA = "+62 857-1534-9712"; // GANTI DENGAN NOMOR WA LO
         let currentQ = 1;
         let totalQ = 15; 
         let timeLeft = 30 * 60;
