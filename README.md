@@ -62,9 +62,9 @@
 
     <script>
         const KEY = "110423";
-        const NOMOR_WA = "628xxxxxxxxxx"; // <--- GANTI JADI NOMOR LO
+        const NOMOR_WA = "6285715349712"; // <--- GANTI JADI NOMOR LO
         let currentQ = 1;
-        let totalQ = 2; // Ganti jadi 15 kalau soalnya sudah lo input semua
+        let totalQ = 15; // Ganti jadi 15 kalau soalnya sudah lo input semua
         let timeLeft = 30 * 60; // 30 Menit
 
         // Timer Logic
