@@ -1,110 +1,125 @@
-# exam <!DOCTYPE html>
+# exam<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Sistem Ujian Anti-Cheat V4</title>
+    <title>Exam Warden Pro - Physics OSN</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Arial', sans-serif; background: #f0f2f5; user-select: none; -webkit-user-select: none; }
-        
-        /* Layar Kunci (Overlay) */
-        #lock-screen { 
-            display: none; position: fixed; top: 0; left: 0; 
-            width: 100vw; height: 100vh; background: #1a1a1a; 
-            color: #ff4d4d; text-align: center; z-index: 10000; padding: 15% 10%;
-        }
-
-        .container { max-width: 600px; margin: auto; background: white; min-height: 100vh; padding: 20px; }
-        .card { background: #fff; border: 1px solid #ddd; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
-        .btn-start { width: 100%; padding: 15px; background: #007bff; color: white; border: none; border-radius: 5px; font-weight: bold; font-size: 16px; }
-        input[type="password"] { width: 100%; padding: 12px; margin-top: 20px; border: 1px solid #ff4d4d; border-radius: 5px; background: #333; color: white; text-align: center; }
-        .btn-unlock { width: 100%; padding: 12px; margin-top: 10px; background: #ff4d4d; color: white; border: none; border-radius: 5px; font-weight: bold; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f4f7f6; user-select: none; -webkit-user-select: none; }
+        #lock-screen { display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #000; color: #ff0000; text-align: center; z-index: 10000; padding-top: 20%; }
+        .container { max-width: 500px; margin: auto; background: white; min-height: 100vh; padding: 20px; position: relative; }
+        .card { display: none; padding: 20px; border: 1px solid #ddd; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); margin-top: 20px; }
+        .card.active { display: block; }
+        .header { display: flex; justify-content: space-between; align-items: center; background: #2c3e50; color: white; padding: 10px; border-radius: 5px; position: sticky; top: 0; z-index: 100; }
+        .nav-btns { display: flex; justify-content: space-between; margin-top: 20px; }
+        button { padding: 12px 20px; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; }
+        .btn-next { background: #3498db; color: white; }
+        .btn-prev { background: #95a5a6; color: white; }
+        .btn-submit { background: #27ae60; color: white; width: 100%; margin-top: 20px; display: none; }
+        input[type="password"] { width: 80%; padding: 10px; margin-top: 20px; background: #222; color: white; border: 1px solid red; text-align: center; }
     </style>
 </head>
 <body oncontextmenu="return false;">
 
     <div id="lock-screen">
-        <h1 style="font-size: 40px;">🚫 TERKUNCI</h1>
-        <p style="margin-top: 20px; color: #ccc;">Kamu mencoba keluar atau membuka aplikasi lain. Pelanggaran tercatat!</p>
+        <h1>🔒 DEVICE LOCKED</h1>
+        <p>Pelanggaran: Terdeteksi pindah tab!</p>
         <input type="password" id="passInput" placeholder="Password Pengawas">
-        <button class="btn-unlock" onclick="unlock()">BUKA KUNCI</button>
+        <button onclick="unlock()" style="background: red; color: white; margin-top: 10px;">UNLOCK</button>
     </div>
 
     <div class="container" id="main-content">
-        <div id="setup-screen">
-            <h2 style="color: #007bff; margin-bottom: 10px;">Persiapan Ujian</h2>
-            <p style="margin-bottom: 20px; color: #666;">Klik tombol di bawah untuk memulai. Jangan keluar dari halaman selama ujian berlangsung.</p>
-            <button class="btn-start" onclick="start()">MULAI SEKARANG</button>
+        <div class="header">
+            <span>Ujian Fisika</span>
+            <span id="timer">30:00</span>
         </div>
 
-        <div id="exam-screen" style="display:none;">
-            <div style="background: #333; color: white; padding: 10px; border-radius: 5px; margin-bottom: 20px;">
-                Status: <strong>Sedang Mengawasi...</strong>
+        <div id="exam-container">
+            <div class="card active" data-q="1">
+                <h3>Soal 1</h3>
+                <p>Benda jatuh bebas dari ketinggian h. Berapa kecepatannya saat menyentuh tanah?</p>
+                <input type="radio" name="q1" value="A"> $\sqrt{gh}$ <br>
+                <input type="radio" name="q1" value="B"> $\sqrt{2gh}$ <br>
+                <input type="radio" name="q1" value="C"> $2gh$
             </div>
-            
-            <div class="card">
-                <p><strong>Soal 1:</strong> Jika $a(t) = 6t$, tentukan kecepatan $v$ saat $t = 3$ detik jika $v(0) = 2$.</p>
-                <input type="radio" name="q1"> 25 m/s <br>
-                <input type="radio" name="q1"> 29 m/s <br>
-                <input type="radio" name="q1"> 31 m/s
+            <div class="card" data-q="2">
+                <h3>Soal 2</h3>
+                <p>Dimensi dari gaya adalah...</p>
+                <input type="radio" name="q2" value="A"> $[M][L][T]^{-2}$ <br>
+                <input type="radio" name="q2" value="B"> $[M][L][T]^{-1}$ <br>
+                <input type="radio" name="q2" value="C"> $[M][L]^2[T]^{-2}$
+            </div>
             </div>
 
-            <div class="card">
-                <p><strong>Soal 2:</strong> Apakah yang dimaksud dengan Hukum Inersia?</p>
-                <input type="radio" name="q2"> Hukum I Newton <br>
-                <input type="radio" name="q2"> Hukum II Newton <br>
-                <input type="radio" name="q2"> Hukum III Newton
-            </div>
+        <div class="nav-btns">
+            <button class="btn-prev" id="prevBtn" onclick="changeQuestion(-1)" disabled>Back</button>
+            <button class="btn-next" id="nextBtn" onclick="changeQuestion(1)">Next</button>
         </div>
+        
+        <button class="btn-submit" id="submitBtn" onclick="submitExam()">KIRIM JAWABAN</button>
     </div>
 
     <script>
-        const KEY = "110423"; // Password yang lo minta
+        const KEY = "110423";
+        const NOMOR_WA = "628xxxxxxxxxx"; // <--- GANTI JADI NOMOR LO
+        let currentQ = 1;
+        let totalQ = 2; // Ganti jadi 15 kalau soalnya sudah lo input semua
+        let timeLeft = 30 * 60; // 30 Menit
 
-        // Fungsi Mulai
-        function start() {
-            document.getElementById('setup-screen').style.display = 'none';
-            document.getElementById('exam-screen').style.display = 'block';
-            localStorage.setItem("exam_active", "true");
-            
-            // Masuk Fullscreen (Biaya biar lebih pro)
-            if (document.documentElement.requestFullscreen) {
-                document.documentElement.requestFullscreen();
+        // Timer Logic
+        let timerInterval = setInterval(() => {
+            let mins = Math.floor(timeLeft / 60);
+            let secs = timeLeft % 60;
+            document.getElementById('timer').innerText = `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                submitExam();
             }
+            timeLeft--;
+        }, 1000);
+
+        function changeQuestion(step) {
+            document.querySelector(`.card[data-q="${currentQ}"]`).classList.remove('active');
+            currentQ += step;
+            document.querySelector(`.card[data-q="${currentQ}"]`).classList.add('active');
+            
+            document.getElementById('prevBtn').disabled = currentQ === 1;
+            document.getElementById('nextBtn').style.display = currentQ === totalQ ? 'none' : 'block';
+            document.getElementById('submitBtn').style.display = currentQ === totalQ ? 'block' : 'none';
         }
 
-        // Deteksi Pindah Tab / Tombol Home
-        document.addEventListener("visibilitychange", function() {
-            if (document.hidden && localStorage.getItem("exam_active") === "true") {
-                lock();
+        document.addEventListener("visibilitychange", () => {
+            if (document.hidden) {
+                localStorage.setItem("locked", "true");
+                showLock();
             }
         });
 
-        function lock() {
-            localStorage.setItem("is_locked", "true");
+        function showLock() {
             document.getElementById('lock-screen').style.display = 'block';
             document.getElementById('main-content').style.display = 'none';
         }
 
         function unlock() {
-            const input = document.getElementById('passInput').value;
-            if (input === KEY) {
-                localStorage.removeItem("is_locked");
+            if (document.getElementById('passInput').value === KEY) {
+                localStorage.removeItem("locked");
                 document.getElementById('lock-screen').style.display = 'none';
                 document.getElementById('main-content').style.display = 'block';
-                document.getElementById('passInput').value = ""; // reset input
-            } else {
-                alert("Salah Bruh!");
-            }
+            } else { alert("Salah!"); }
         }
 
-        // Cek status saat loading (Anti-Refresh)
-        window.onload = function() {
-            if (localStorage.getItem("is_locked") === "true") {
-                lock();
+        function submitExam() {
+            let answers = "";
+            for(let i=1; i<=totalQ; i++) {
+                let val = document.querySelector(`input[name="q${i}"]:checked`)?.value || "Kosong";
+                answers += `No ${i}: ${val}%0A`;
             }
-        };
+            let url = `https://wa.me/${NOMOR_WA}?text=Hasil Ujian OSN%0A%0A${answers}`;
+            window.location.href = url;
+        }
+
+        window.onload = () => { if(localStorage.getItem("locked")) showLock(); };
     </script>
 </body>
 </html>
